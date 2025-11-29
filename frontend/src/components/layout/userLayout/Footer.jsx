@@ -1,14 +1,12 @@
 import React from "react";
 import { FaGlobe, FaFacebookF, FaInstagram } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 const Footer = () => {
   return (
     <footer className="bg-black text-gray-300 pt-16 pb-10 relative border-t border-gray-700">
-
-
-
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12 text-center md:text-left">
-
         {/* BRAND + DESCRIPTION */}
         <div className="space-y-4">
           <h2 className="text-2xl font-extrabold tracking-wider text-transparent bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400">
@@ -25,14 +23,49 @@ const Footer = () => {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-white">Quick Links</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="/" className="hover:text-pink-400 transition">Home</a></li>
-            <li><a href="/booking" className="hover:text-pink-400 transition">Book Now</a></li>
-            <li><a href="/#services" className="hover:text-pink-400 transition">Services</a></li>
-            <li><a href="/#gallery" className="hover:text-pink-400 transition">Gallery</a></li>
+            <li>
+              <HashLink
+                smooth
+                to="/#home"
+                className="hover:text-pink-400 transition"
+              >
+                Home
+              </HashLink>
+            </li>
+
+            <li>
+              <Link
+                to="/booking"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="hover:text-pink-400 transition"
+              >
+                Book Now
+              </Link>
+            </li>
+
+            <li>
+              <HashLink
+                smooth
+                to="/#services"
+                className="hover:text-pink-400 transition"
+              >
+                Services
+              </HashLink>
+            </li>
+
+            <li>
+              <HashLink
+                smooth
+                to="/#gallery"
+                className="hover:text-pink-400 transition"
+              >
+                Gallery
+              </HashLink>
+            </li>
           </ul>
         </div>
 
-        {/* CONTACT + SOCIAL */}
+        {/* CONTACT  */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-white">Contact</h3>
 
@@ -54,10 +87,8 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Divider */}
       <div className="w-full h-px bg-gray-800 mt-10"></div>
 
-      {/* COPYRIGHT */}
       <p className="text-center text-gray-500 text-xs mt-4">
         © {new Date().getFullYear()} Paradise Resort — All Rights Reserved.
       </p>

@@ -12,7 +12,6 @@ const Hero = () => {
         backgroundImage: `url(${heroImg})`,
       }}
     >
-      {/* FIXED: overlay no longer blocks button */}
       <div className="absolute inset-0 bg-linear-to-b from-black via-[#0c6169] to-[#ff007f]/15 pointer-events-none"></div>
 
       <div className="relative z-10 px-8 text-center text-white max-w-3xl">

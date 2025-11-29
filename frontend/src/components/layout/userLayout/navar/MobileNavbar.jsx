@@ -40,7 +40,6 @@ const MobileNavbar = ({ setOpen, sidebarRef }) => {
 </HashLink>
 
 
-        {/* CLOSE BUTTON */}
         <button
           onClick={() => setOpen(false)}
           className="text-2xl text-gray-300 hover:text-white"
@@ -49,7 +48,6 @@ const MobileNavbar = ({ setOpen, sidebarRef }) => {
         </button>
       </div>
 
-      {/* MENU ITEMS */}
       <div className="flex flex-col gap-6 px-6 py-6 text-lg">
         <HashLink
           smooth

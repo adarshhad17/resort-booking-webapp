@@ -29,7 +29,6 @@ const DesktopBookings = ({ data, loading }) => {
           </tr>
         </thead>
 
-        {/* BODY */}
         <tbody>
           {loading ? (
             <tr>

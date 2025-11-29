@@ -44,7 +44,6 @@ const Booking = () => {
         roomType: "",
       });
 
-      // Delay so user can see success state
       setTimeout(() => navigate("/"), 1500);
     } else {
       setMessage(response.message || "Something went wrong!");

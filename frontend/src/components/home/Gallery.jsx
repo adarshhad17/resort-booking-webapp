@@ -18,7 +18,6 @@ const Gallery = () => {
 
 
     >
-      {/* Overlay */}
       <div className="absolute inset-0 bg-linear-to-b from-black via-[#0c6169] to-[#ff007f]/15"></div>
 
       <div className="relative max-w-6xl mx-auto px-4">
