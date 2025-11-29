@@ -32,7 +32,7 @@ API.interceptors.request.use((config) => {
 
 
 
-/* ADMIN REGISTER API */
+/* REGISTER  */
 export const adminRegisterApi = async (data) => {
   try {
     const res = await API.post("/register", data);
@@ -42,7 +42,9 @@ export const adminRegisterApi = async (data) => {
   }
 };
 
-/* ADMIN LOGIN API */
+
+
+/*  LOGIN  */
 export const adminLoginApi = async (data) => {
   try {
     const res = await API.post("/login", data);
@@ -52,7 +54,8 @@ export const adminLoginApi = async (data) => {
   }
 };
 
-/* ADMIN BOOKING MANAGEMENT */
+
+/* GetAllBookings Bookings */
 export const getAllBookings = async () => {
   try {
     const res = await API.get("/bookings");
@@ -62,7 +65,8 @@ export const getAllBookings = async () => {
   }
 };
 
-/* USER BOOKING API (Public) */
+
+/* User Booking */
 export const createBooking = async (formData) => {
   try {
     const res = await axios.post(
