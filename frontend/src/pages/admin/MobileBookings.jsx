@@ -3,13 +3,13 @@ import { FiMail, FiPhone, FiCalendar, FiUsers, FiHome } from "react-icons/fi";
 
 const MobileBookings = ({ data, loading }) => {
   const roomColors = {
+    Single: "bg-orange-600/20 text-orange-300 border-orange-700",
     Deluxe: "bg-blue-600/20 text-blue-300 border-blue-700",
-    Premium: "bg-yellow-600/20 text-yellow-300 border-yellow-700",
-    Standard: "bg-green-600/20 text-green-300 border-green-700",
+    Suite: "bg-purple-600/20 text-purple-300 border-purple-700",
   };
 
   return (
-    <div className="space-y-7 md:hidden">
+    <div className="space-y-8 md:hidden px-4 py-4">
       {loading ? (
         <p className="text-center text-gray-300 py-5">Loading...</p>
       ) : data.length > 0 ? (
@@ -22,82 +22,89 @@ const MobileBookings = ({ data, loading }) => {
             <div
               key={b._id}
               className="
-                p-5 
+                p-6 
                 rounded-2xl 
-                bg-gray-900 
-                border border-pink-900
+                bg-[#0c0f1f]/90
+                border border-pink-600
                 shadow-xl 
-                backdrop-blur-md
+                backdrop-blur-xl
+                transition-all
+                space-y-6
               "
             >
-              {/* Name */}
-              <h3 className="text-xl font-bold text-green-500 tracking-wide capitalize">
+              {/* NAME */}
+              <h3 className="text-2xl font-semibold text-blue-500 capitalize tracking-wide">
                 {b.fullName}
               </h3>
 
-              <div className="h-px bg-white/10 my-4"></div>
+              <div className="h-px bg-white/10"></div>
 
               {/* DETAILS */}
-              <div className="space-y-4 text-sm">
+              <div className="space-y-6 text-sm">
 
                 {/* EMAIL */}
-                <div className="flex items-center gap-3">
-                  <FiMail className="text-gray-400 text-lg" />
+                <div className="flex items-start gap-4">
+                  <FiMail className="text-gray-400 text-xl mt-1" />
                   <div>
-                    <p className="text-[11px] text-gray-400 leading-none">Email</p>
-                    <p className="text-white break-all font-medium">{b.email}</p>
+                    <p className="text-[12px] text-gray-400">Email</p>
+                    <p className="text-gray-200 font-medium break-all">
+                      {b.email}
+                    </p>
                   </div>
                 </div>
 
                 {/* PHONE */}
-                <div className="flex items-center gap-3">
-                  <FiPhone className="text-gray-400 text-lg" />
+                <div className="flex items-start gap-4">
+                  <FiPhone className="text-gray-400 text-xl mt-1" />
                   <div>
-                    <p className="text-[11px] text-gray-400 leading-none">Phone</p>
-                    <p className="text-white font-medium">{b.phone}</p>
+                    <p className="text-[12px] text-gray-400">Phone</p>
+                    <p className="text-gray-200 font-medium">{b.phone}</p>
                   </div>
                 </div>
 
                 {/* CHECK-IN */}
-                <div className="flex items-center gap-3">
-                  <FiCalendar className="text-gray-400 text-lg" />
+                <div className="flex items-start gap-4">
+                  <FiCalendar className="text-gray-400 text-xl mt-1" />
                   <div>
-                    <p className="text-[11px] text-gray-400 leading-none">Check-In</p>
-                    <p className="text-yellow-200 font-medium">
+                    <p className="text-[12px] text-gray-400">Check-In</p>
+                    <p className="text-yellow-300 font-medium">
                       {new Date(b.checkInDate).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
 
                 {/* CHECK-OUT */}
-                <div className="flex items-center gap-3">
-                  <FiCalendar className="text-gray-400 text-lg" />
+                <div className="flex items-start gap-4">
+                  <FiCalendar className="text-gray-400 text-xl mt-1" />
                   <div>
-                    <p className="text-[11px] text-gray-400 leading-none">Check-Out</p>
-                    <p className="text-yellow-200 font-medium">
+                    <p className="text-[12px] text-gray-400">Check-Out</p>
+                    <p className="text-yellow-300 font-medium">
                       {new Date(b.checkOutDate).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
 
                 {/* GUESTS */}
-                <div className="flex items-center gap-3">
-                  <FiUsers className="text-gray-400 text-lg" />
+                <div className="flex items-start gap-4">
+                  <FiUsers className="text-gray-400 text-xl mt-1" />
                   <div>
-                    <p className="text-[11px] text-gray-400 leading-none">Guests</p>
-                    <p className="text-white font-medium">{b.guests}</p>
+                    <p className="text-[12px] text-gray-400">Guests</p>
+                    <p className="text-gray-200 mt-1 font-medium">{b.guests}</p>
                   </div>
                 </div>
 
                 {/* ROOM TYPE */}
-                <div className="flex items-center gap-3">
-                  <FiHome className="text-gray-400 text-lg" />
+                <div className="flex items-start gap-4">
+                  <FiHome className="text-gray-400 text-xl mt-1" />
                   <div>
-                    <p className="text-[11px] text-gray-400 leading-none">Room Type</p>
+                    <p className="text-[12px] text-gray-400">Room Type</p>
                     <span
                       className={`
-                        inline-block mt-1 px-3 py-1 
-                        rounded-full border text-xs font-medium
+                        inline-block 
+                        mt-2 px-3 py-1 
+                        rounded-full border 
+                        text-xs font-semibold 
+                        w-28 text-center 
                         ${badgeColor}
                       `}
                     >

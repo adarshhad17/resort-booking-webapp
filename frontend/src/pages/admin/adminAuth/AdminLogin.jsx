@@ -1,52 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { adminLoginApi } from "../../../api/api";
 import AdminNavbar from "../../../components/layout/adminLayout/AdminNavbar";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (token) {
+      navigate("/admin/dashboard", { replace: true });
+    }
+  }, [navigate]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
-  const [msgType, setMsgType] = useState(""); 
+  const [msgType, setMsgType] = useState("");
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-  setMsg("");
-  setMsgType("");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setMsg("");
+    setMsgType("");
 
-  const response = await adminLoginApi({
-    email: email.trim().toLowerCase(),   
-    password: password.trim(),           
-  });
+    const response = await adminLoginApi({
+      email: email.trim().toLowerCase(),
+      password: password.trim(),
+    });
 
-  // console.log("LOGIN RESPONSE:", response); 
+    if (response.success) {
+      const role = response.admin?.role;
 
-  if (response.success) {
-    const role = response.admin?.role;
+      if (role !== "admin") {
+        setMsg("Access denied! You are not an admin.");
+        setMsgType("error");
+        navigate("/");
+        return;
+      }
 
-    if (role !== "admin") {
-      setMsg("Access denied! You are not an admin.");
+      localStorage.setItem("adminToken", response.token);
+
+      setMsg("Login successful!");
+      setMsgType("success");
+
+      navigate("/admin/dashboard");
+    } else {
+      setMsg(response.message || "Login failed!");
       setMsgType("error");
-      navigate("/");
-      return;
     }
-
-    localStorage.setItem("adminToken", response.token);
-
-    setMsg("Login successful!");
-    setMsgType("success");
-
-    navigate("/admin/dashboard");
-  } else {
-    setMsg(response.message || "Login failed!");
-    setMsgType("error");
-  }
-};
-
-
+  };
 
   return (
     <>
@@ -88,7 +91,7 @@ const handleLogin = async (e) => {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-lg  bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-semibold"
+              className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-semibold"
             >
               Login
             </button>

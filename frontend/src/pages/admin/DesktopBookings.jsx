@@ -38,10 +38,11 @@ const DesktopBookings = ({ data, loading }) => {
             </tr>
           ) : data.length > 0 ? (
             data.map((b, index) => {
+
               const roomColors = {
+                Single: "bg-orange-600/20 text-orange-300 border-orange-700",
                 Deluxe: "bg-blue-600/20 text-blue-300 border-blue-700",
-                Premium: "bg-yellow-600/20 text-yellow-300 border-yellow-700",
-                Standard: "bg-green-600/20 text-green-300 border-green-700",
+                Suite: "bg-purple-600/20 text-purple-300 border-purple-700",
               };
 
               const badgeColor =
@@ -58,7 +59,7 @@ const DesktopBookings = ({ data, loading }) => {
                     hover:bg-white/20
                   `}
                 >
-                  <td className="p-4 font-medium text-yellow-300">{b.fullName}</td>
+                  <td className="p-4 font-medium text-yellow-300 capitalize">{b.fullName}</td>
 
                   <td className="p-4 text-gray-300">{b.email}</td>
 
@@ -76,7 +77,17 @@ const DesktopBookings = ({ data, loading }) => {
 
                   <td className="p-4">
                     <span
-                      className={`px-3 py-1 text-xs border rounded-full ${badgeColor}`}
+                      className={`
+                        px-3 
+                        py-1 
+                        text-xs 
+                        border 
+                        rounded-full 
+                        w-24 
+                        text-center 
+                        inline-block 
+                        ${badgeColor}
+                      `}
                     >
                       {b.roomType}
                     </span>
