@@ -7,7 +7,7 @@ import generateToken from "../utils/generateToken";
 // ADMIN REGISTER (role is managed ONLY in DB)
 export const adminRegister = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;  // ❗ removed role from request
+    const { email, password } = req.body;  
 
     const exist = await Admin.findOne({ email });
     if (exist) {
@@ -23,7 +23,7 @@ export const adminRegister = async (req: Request, res: Response) => {
     const admin = await Admin.create({
       email,
       password: hashedPassword,
-      role: "user",         // ❗ role fixed here — safe
+      role: "user",        
     });
 
     const token = generateToken(admin._id.toString(), admin.role);
@@ -45,7 +45,7 @@ export const adminRegister = async (req: Request, res: Response) => {
 
 
 
-// ADMIN LOGIN (role comes ONLY from DB)
+// ADMIN LOGIN 
 export const adminLogin = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -66,7 +66,7 @@ export const adminLogin = async (req: Request, res: Response) => {
       });
     }
 
-    // Role is taken from DB, safe
+    
     const token = generateToken(admin._id.toString(), admin.role);
 
     return res.json({
