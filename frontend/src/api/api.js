@@ -1,0 +1,80 @@
+import axios from "axios";
+
+
+export const getAdminToken = () => {
+  return localStorage.getItem("adminToken");
+};
+
+export const logoutAdmin = () => {
+  localStorage.removeItem("adminToken");
+  window.location.href = "/admin/login";
+};
+
+/* AXIOS INSTANCE (Admin Only*/
+const API = axios.create({
+  baseURL: "http://localhost:5000/admin",
+});
+
+API.interceptors.request.use((config) => {
+  const token = getAdminToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+
+/* ADMIN REGISTER API  */
+
+export const adminRegisterApi = async (data) => {
+  try {
+    const res = await API.post("/register", data);
+    return res.data;
+  } catch (error) {
+    return error.response?.data || { success: false, message: "Server Error" };
+  }
+};
+
+
+
+/*  ADMIN LOGIN API  */
+
+export const adminLoginApi = async (data) => {
+  try {
+    const res = await API.post("/login", data);
+    return res.data;
+  } catch (error) {
+    return error.response?.data || { success: false, message: "Server Error" };
+  }
+};
+
+
+/*  ADMIN BOOKING MANAGEMENT  */
+export const getAllBookings = async () => {
+  try {
+    const res = await API.get("/bookings");
+    return res.data;
+  } catch (error) {
+    return error.response?.data || { success: false, message: "Server Error" };
+  }
+};
+
+
+/*  USER BOOKING API (Public */
+
+export const createBooking = async (formData) => {
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/bookings",
+      formData
+    );
+    return res.data;
+  } catch (error) {
+    return (
+      error.response?.data || {
+        success: false,
+        message: "Server Error",
+      }
+    );
+  }
+};
