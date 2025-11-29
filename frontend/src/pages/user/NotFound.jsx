@@ -6,10 +6,8 @@ const NotFound = () => {
   return (
     <div className="h-screen bg-black flex flex-col items-center justify-center text-center px-6">
 
-      {/* STATIC TRIANGLE ICON */}
       <FiAlertTriangle className="text-7xl md:text-8xl text-red-600 mb-4" />
 
-      {/* Colorful Gradient Text */}
       <h1 className="text-6xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-purple-500 via-pink-500 to-blue-500 drop-shadow-lg">
         404
       </h1>

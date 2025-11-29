@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export const getAdminToken = () => {
   return localStorage.getItem("adminToken");
 };
@@ -10,22 +9,30 @@ export const logoutAdmin = () => {
   window.location.href = "/admin/login";
 };
 
-/* AXIOS INSTANCE (Admin Only*/
+/* AXIOS INSTANCE (Admin Only) */
 const API = axios.create({
   baseURL: "http://localhost:5000/admin",
 });
 
+/* 🔥 FIXED INTERCEPTOR */
 API.interceptors.request.use((config) => {
   const token = getAdminToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+
+  if (
+    !config.url.includes("/login") &&
+    !config.url.includes("/register")
+  ) {
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
+
   return config;
 });
 
 
-/* ADMIN REGISTER API  */
 
+/* ADMIN REGISTER API */
 export const adminRegisterApi = async (data) => {
   try {
     const res = await API.post("/register", data);
@@ -35,10 +42,7 @@ export const adminRegisterApi = async (data) => {
   }
 };
 
-
-
-/*  ADMIN LOGIN API  */
-
+/* ADMIN LOGIN API */
 export const adminLoginApi = async (data) => {
   try {
     const res = await API.post("/login", data);
@@ -48,8 +52,7 @@ export const adminLoginApi = async (data) => {
   }
 };
 
-
-/*  ADMIN BOOKING MANAGEMENT  */
+/* ADMIN BOOKING MANAGEMENT */
 export const getAllBookings = async () => {
   try {
     const res = await API.get("/bookings");
@@ -59,13 +62,11 @@ export const getAllBookings = async () => {
   }
 };
 
-
-/*  USER BOOKING API (Public */
-
+/* USER BOOKING API (Public) */
 export const createBooking = async (formData) => {
   try {
     const res = await axios.post(
-      "http://localhost:5000/bookings",
+      "http://localhost:5000/booking",
       formData
     );
     return res.data;

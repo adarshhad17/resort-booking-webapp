@@ -16,6 +16,7 @@ const Booking = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,11 +26,13 @@ const Booking = () => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
+    setMessageType("");
 
     const response = await createBooking(form);
 
     if (response.success) {
       setMessage("Booking successful!");
+      setMessageType("success");
 
       setForm({
         fullName: "",
@@ -41,9 +44,11 @@ const Booking = () => {
         roomType: "",
       });
 
-      navigate("/"); 
+      // Delay so user can see success state
+      setTimeout(() => navigate("/"), 1500);
     } else {
       setMessage(response.message || "Something went wrong!");
+      setMessageType("error");
     }
 
     setLoading(false);
@@ -52,7 +57,7 @@ const Booking = () => {
   return (
     <div
       className="
-        min-h-screen w-full
+        min-h-screen w-full 
         bg-linear-to-b from-black via-[#0a1230] to-[#020617]
         pt-28 pb-20 px-4
       "
@@ -76,6 +81,8 @@ const Booking = () => {
               Fill in the details below to secure your stay
             </p>
           </div>
+
+    
 
           {/* FULL NAME */}
           <div className="space-y-2">
@@ -223,8 +230,12 @@ const Booking = () => {
             </div>
           </div>
 
-          {message && (
-            <p className="text-center text-red-600 font-semibold">
+                {message && (
+            <p
+              className={`text-center font-semibold ${
+                messageType === "success" ? "text-green-500" : "text-red-500"
+              }`}
+            >
               {message}
             </p>
           )}
@@ -233,12 +244,20 @@ const Booking = () => {
           <button
             type="submit"
             disabled={loading}
-            className="
-              w-full text-white py-3 rounded-lg font-semibold text-lg mt-10
-              bg-blue-600 hover:bg-blue-700 transition shadow-xl
-            "
+            className={`
+              w-full text-white py-3 rounded-lg font-semibold text-lg mt-10 transition shadow-xl
+              ${
+                messageType === "success"
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }
+            `}
           >
-            {loading ? "Booking..." : "Confirm Booking"}
+            {loading
+              ? "Booking..."
+              : messageType === "success"
+              ? "Booking Confirmed"
+              : "Confirm Booking"}
           </button>
         </form>
       </div>

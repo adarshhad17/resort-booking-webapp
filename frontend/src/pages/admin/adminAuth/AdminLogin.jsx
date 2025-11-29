@@ -12,40 +12,40 @@ const AdminLogin = () => {
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState(""); 
 
-  const handleLogin = async (e) => {
+const handleLogin = async (e) => {
   e.preventDefault();
   setMsg("");
   setMsgType("");
 
-  const response = await adminLoginApi({ email, password });
+  const response = await adminLoginApi({
+    email: email.trim().toLowerCase(),   
+    password: password.trim(),           
+  });
+
+  // console.log("LOGIN RESPONSE:", response); 
 
   if (response.success) {
-    // Check role from backend
     const role = response.admin?.role;
 
     if (role !== "admin") {
-      // Not an admin
       setMsg("Access denied! You are not an admin.");
       setMsgType("error");
-
-      // redirect to home
       navigate("/");
       return;
     }
 
-    // Valid admin
     localStorage.setItem("adminToken", response.token);
 
     setMsg("Login successful!");
     setMsgType("success");
 
     navigate("/admin/dashboard");
-
   } else {
     setMsg(response.message || "Login failed!");
     setMsgType("error");
   }
 };
+
 
 
   return (

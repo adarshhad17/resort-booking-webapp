@@ -33,7 +33,6 @@ const AdminDashboard = () => {
 
         setBookings(res.bookings);
       } catch {
-        // ✔ Removed err variable to fix eslint no-unused-vars
         navigate("/admin/login");
         return;
       } finally {
