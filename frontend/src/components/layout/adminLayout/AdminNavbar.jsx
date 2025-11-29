@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { FiHome, FiLogOut } from "react-icons/fi";
+import { logoutAdmin } from "../../api/api"; 
 
 const AdminNavbar = () => {
   const navigate = useNavigate();
@@ -8,8 +9,7 @@ const AdminNavbar = () => {
   const token = localStorage.getItem("adminToken");
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    navigate("/admin/login");
+    logoutAdmin(navigate); 
   };
 
   const isLoginPage = location.pathname === "/admin/login";
